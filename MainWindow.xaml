@@ -1,0 +1,79 @@
+﻿<Window x:Class="NetPract2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetPract2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="704" Width="1267" ResizeMode="CanMinimize"
+        Loaded="Window_Loaded"
+        >
+    <Grid HorizontalAlignment="Center" Height="683" VerticalAlignment="Top" Width="1247">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="742*"/>
+            <ColumnDefinition Width="505*"/>
+        </Grid.ColumnDefinitions>
+        <Separator HorizontalAlignment="Center" Height="19" Margin="0,323,0,0" VerticalAlignment="Top" Width="506" Background="Black" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <Separator HorizontalAlignment="Left" Height="21" Margin="398,333,0,0" VerticalAlignment="Top" Width="684" Background="Black" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <TextBlock HorizontalAlignment="Left" Margin="282,0,0,0" TextWrapping="Wrap" Text="Deposit Control" VerticalAlignment="Top" FontSize="36" Height="48" Width="251"/>
+        <TextBlock HorizontalAlignment="Left" Margin="168,0,0,0" TextWrapping="Wrap" Text="Deposit types control" VerticalAlignment="Top" FontSize="25" Grid.Column="1" Height="33" Width="236"/>
+        <TextBlock HorizontalAlignment="Left" Margin="206,334,0,0" TextWrapping="Wrap" Text="Clients control" VerticalAlignment="Top" FontSize="25" Grid.Column="1" Height="33" Width="159"/>
+        <ComboBox x:Name="depClient" HorizontalAlignment="Left" Margin="29,92,0,0" VerticalAlignment="Top" Width="220" ItemStringFormat="" IsEditable="True" Height="22"/>
+        <ComboBox x:Name="depositType" HorizontalAlignment="Left" Margin="29,186,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" Height="22" SelectionChanged="calculateProfit"/>
+        <DatePicker x:Name="depEndDate" HorizontalAlignment="Left" Margin="311,188,0,0" VerticalAlignment="Top" Height="24" Width="102" SelectedDateChanged="calculateProfit"/>
+        <TextBox x:Name="depMoney" HorizontalAlignment="Left" Margin="556,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" PreviewTextInput="onlyNumeric" TextChanged="calculateProfit"/>
+        <TextBox x:Name="profitMoney" HorizontalAlignment="Left" Margin="556,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" IsEnabled="False"/>
+        <Button x:Name="deleteDep" Content="Delete" HorizontalAlignment="Left" Margin="160,268,0,0" VerticalAlignment="Top" Height="37" Width="130" FontSize="25" IsEnabled="False" Click="deleteDep_Click"/>
+        <DataGrid x:Name="depList" HorizontalAlignment="Center" Height="331" Margin="0,323,0,0" VerticalAlignment="Top" Width="714" d:ItemsSource="{d:SampleData ItemCount=5}" IsReadOnly="True" SelectionChanged="fillDepositFields"/>
+        <Button x:Name="depCreate" Content="+" HorizontalAlignment="Left" Height="40" Margin="10,268,0,0" VerticalAlignment="Top" Width="40" Background="#FFDDDDDD" FontSize="25" Grid.RowSpan="1" Click="clearDepFields"/>
+        <TextBox x:Name="depTypeName" HorizontalAlignment="Left" Margin="18,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Grid.Column="1" Height="18"/>
+        <TextBox x:Name="depTypePercent" HorizontalAlignment="Left" Margin="276,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Grid.Column="1" PreviewTextInput="onlyNumeric" Height="18"/>
+        <TextBox x:Name="depTypeRegularity" HorizontalAlignment="Left" Margin="18,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Grid.Column="1" PreviewTextInput="positiveInt" Height="18"/>
+        <TextBox x:Name="depTypeMinTerm" HorizontalAlignment="Left" Margin="276,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Grid.Column="1" PreviewTextInput="positiveInt" Height="18"/>
+        <Button x:Name="depTypeCreate" Content="+" HorizontalAlignment="Left" Margin="48,160,0,0" VerticalAlignment="Top" FontSize="20" Width="61" Height="40" RenderTransformOrigin="0.233,0.309" Grid.Column="1" Click="clearDepTypesFields"/>
+        <Button x:Name="depTypeSave" Content="Save" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" FontSize="25" Width="93" Grid.Column="1" Click="depTypeSave_Click" Height="37"/>
+        <Button x:Name="depTypeDel" Content="Delete" HorizontalAlignment="Left" Margin="368,160,0,0" VerticalAlignment="Top" FontSize="25" Width="114" Grid.Column="1" IsEnabled="False" Click="depTypeDel_Click" Height="37"/>
+        <DataGrid x:Name="depTypesList" HorizontalAlignment="Center" Height="99" Margin="0,209,0,0" VerticalAlignment="Top" Width="479" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" IsReadOnly="True" SelectionChanged="fillDepositTypesFields"/>
+        <TextBox x:Name="clientName" HorizontalAlignment="Left" Margin="18,384,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="18"/>
+        <TextBox x:Name="clientID" HorizontalAlignment="Left" Margin="18,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="18"/>
+        <Button x:Name="clientCreate" Content="+" HorizontalAlignment="Left" Margin="35,460,0,0" VerticalAlignment="Top" FontSize="20" Width="61" Height="40" RenderTransformOrigin="0.233,0.309" Grid.Column="1" Click="clearClientFields"/>
+        <Button x:Name="clientSave" Content="Save" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="25" Width="93" Grid.Column="1" Click="clientSave_Click" Height="37"/>
+        <Button x:Name="clientDel" Content="Delete" HorizontalAlignment="Left" Margin="355,460,0,0" VerticalAlignment="Top" FontSize="25" Width="114" Grid.Column="1" IsEnabled="False" Click="clientDel_Click" Height="37"/>
+        <DataGrid x:Name="clientList" HorizontalAlignment="Left" Height="149" Margin="17,505,0,0" VerticalAlignment="Top" Width="480" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" IsReadOnly="True" SelectionChanged="fillClientFields"/>
+        <Button x:Name="depSave" Content="Save" HorizontalAlignment="Left" Margin="494,268,0,0" VerticalAlignment="Top" Height="37" Width="130" FontSize="25" Click="depSave_Click"/>
+        <CheckBox x:Name="depTypeCompound" Content="Compound Interest" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="123"/>
+        <Label Content="Client" HorizontalAlignment="Left" Margin="29,55,0,0" VerticalAlignment="Top" Height="26" Width="40"/>
+        <Label Content="Deposit type" HorizontalAlignment="Left" Margin="29,153,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
+        <Label Content="Start Date" HorizontalAlignment="Left" Margin="306,59,0,0" VerticalAlignment="Top" Height="26" Width="63"/>
+        <Label Content="End date" HorizontalAlignment="Left" Margin="306,154,0,0" VerticalAlignment="Top" Height="26" Width="57"/>
+        <Label Content="Money to deposit" HorizontalAlignment="Left" Margin="572,59,0,0" VerticalAlignment="Top" Height="26" Width="104"/>
+        <Label Content="Total money" HorizontalAlignment="Left" Margin="572,154,0,0" VerticalAlignment="Top" Height="26" Width="75"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="18,37,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="42"/>
+        <Label Content="Percent" HorizontalAlignment="Left" Margin="330,32,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="49"/>
+        <Label Content="Regularity" HorizontalAlignment="Left" Margin="18,88,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="63"/>
+        <Label Content="Minimal Term" HorizontalAlignment="Left" Margin="330,87,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="82"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="18,353,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="42"/>
+        <Label Content="Deposits number" HorizontalAlignment="Left" Margin="381,351,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="101"/>
+        <Label Content="Client ID" HorizontalAlignment="Left" Margin="22,402,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="55"/>
+        <TextBox x:Name="clientDepsNum" HorizontalAlignment="Left" Margin="374,377,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" IsEnabled="False" Height="18"/>
+        <TextBox x:Name="depStartDate" HorizontalAlignment="Left" Margin="306,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" IsEnabled="False" SelectionOpacity="0"/>
+    </Grid>
+</Window>
