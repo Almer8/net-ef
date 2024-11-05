@@ -41,9 +41,9 @@
         <DatePicker x:Name="depEndDate" HorizontalAlignment="Left" Margin="311,188,0,0" VerticalAlignment="Top" Height="24" Width="102" SelectedDateChanged="calculateProfit"/>
         <TextBox x:Name="depMoney" HorizontalAlignment="Left" Margin="556,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" PreviewTextInput="onlyNumeric" TextChanged="calculateProfit"/>
         <TextBox x:Name="profitMoney" HorizontalAlignment="Left" Margin="556,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" IsEnabled="False"/>
-        <Button x:Name="deleteDep" Content="Delete" HorizontalAlignment="Left" Margin="160,268,0,0" VerticalAlignment="Top" Height="37" Width="130" FontSize="25" IsEnabled="False" Click="deleteDep_Click"/>
-        <DataGrid x:Name="depList" HorizontalAlignment="Center" Height="331" Margin="0,323,0,0" VerticalAlignment="Top" Width="714" d:ItemsSource="{d:SampleData ItemCount=5}" IsReadOnly="True" SelectionChanged="fillDepositFields"/>
-        <Button x:Name="depCreate" Content="+" HorizontalAlignment="Left" Height="40" Margin="10,268,0,0" VerticalAlignment="Top" Width="40" Background="#FFDDDDDD" FontSize="25" Grid.RowSpan="1" Click="clearDepFields"/>
+        <Button x:Name="deleteDep" Content="Delete" HorizontalAlignment="Left" Margin="165,248,0,0" VerticalAlignment="Top" Height="36" Width="130" FontSize="25" IsEnabled="False" Click="deleteDep_Click"/>
+        <DataGrid x:Name="depList" HorizontalAlignment="Center" Height="288" Margin="0,366,0,0" VerticalAlignment="Top" Width="714" d:ItemsSource="{d:SampleData ItemCount=5}" IsReadOnly="True" SelectionChanged="fillDepositFields"/>
+        <Button x:Name="depCreate" Content="+" HorizontalAlignment="Left" Height="40" Margin="10,246,0,0" VerticalAlignment="Top" Width="40" Background="#FFDDDDDD" FontSize="25" Grid.RowSpan="1" Click="clearDepFields"/>
         <TextBox x:Name="depTypeName" HorizontalAlignment="Left" Margin="18,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Grid.Column="1" Height="18"/>
         <TextBox x:Name="depTypePercent" HorizontalAlignment="Left" Margin="276,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Grid.Column="1" PreviewTextInput="onlyNumeric" Height="18"/>
         <TextBox x:Name="depTypeRegularity" HorizontalAlignment="Left" Margin="18,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Grid.Column="1" PreviewTextInput="positiveInt" Height="18"/>
@@ -58,7 +58,7 @@
         <Button x:Name="clientSave" Content="Save" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="25" Width="93" Grid.Column="1" Click="clientSave_Click" Height="37"/>
         <Button x:Name="clientDel" Content="Delete" HorizontalAlignment="Left" Margin="355,460,0,0" VerticalAlignment="Top" FontSize="25" Width="114" Grid.Column="1" IsEnabled="False" Click="clientDel_Click" Height="37"/>
         <DataGrid x:Name="clientList" HorizontalAlignment="Left" Height="149" Margin="17,505,0,0" VerticalAlignment="Top" Width="480" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="1" IsReadOnly="True" SelectionChanged="fillClientFields"/>
-        <Button x:Name="depSave" Content="Save" HorizontalAlignment="Left" Margin="494,268,0,0" VerticalAlignment="Top" Height="37" Width="130" FontSize="25" Click="depSave_Click"/>
+        <Button x:Name="depSave" Content="Save" HorizontalAlignment="Left" Margin="494,249,0,0" VerticalAlignment="Top" Height="37" Width="130" FontSize="25" Click="depSave_Click"/>
         <CheckBox x:Name="depTypeCompound" Content="Compound Interest" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="123"/>
         <Label Content="Client" HorizontalAlignment="Left" Margin="29,55,0,0" VerticalAlignment="Top" Height="26" Width="40"/>
         <Label Content="Deposit type" HorizontalAlignment="Left" Margin="29,153,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
@@ -75,5 +75,7 @@
         <Label Content="Client ID" HorizontalAlignment="Left" Margin="22,402,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="55"/>
         <TextBox x:Name="clientDepsNum" HorizontalAlignment="Left" Margin="374,377,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" IsEnabled="False" Height="18"/>
         <TextBox x:Name="depStartDate" HorizontalAlignment="Left" Margin="306,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" IsEnabled="False" SelectionOpacity="0"/>
+        <TextBox x:Name="nameFilter" HorizontalAlignment="Left" Margin="19,334,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="filterByName"/>
+        <Label Content="Client name" HorizontalAlignment="Left" Margin="19,307,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
