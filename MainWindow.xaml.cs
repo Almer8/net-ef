@@ -457,5 +457,17 @@ namespace NetPract2
                 }
             }
         }
+
+        private void filterByName(object sender, TextChangedEventArgs e)
+        {
+            if(nameFilter.Text == "")
+            {
+                depList.ItemsSource = depositRepository.getAllDeposits();
+            }
+            else
+            {
+                depList.ItemsSource = depositRepository.getAllDepositWhereClientNameContains(nameFilter.Text);
+            }
+        }   
     }
 }

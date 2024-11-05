@@ -26,6 +26,18 @@ namespace NetPract2.Repository
             }
         }
 
+        public List<Deposit> getAllDepositWhereClientNameContains(string clientName) {
+
+            using (DBContext ctx = new DBContext())
+            {
+                return (from deposit in ctx.Deposits
+                        join client in ctx.Clients on deposit.ClientId equals client.Id
+                        where client.Name.Contains(clientName)
+                        select deposit).ToList();
+            }
+
+        }
+
         public List<Deposit> getAllDepositsWithClientId(int id)
         {
             using (DBContext ctx = new DBContext())
