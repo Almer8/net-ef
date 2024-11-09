@@ -34,10 +34,11 @@ namespace NetPract2.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ClientId = table.Column<int>(type: "integer", nullable: false),
                     DepositTypeId = table.Column<int>(type: "integer", nullable: false),
-                    DepositedMoney = table.Column<float>(type: "real", nullable: false),
-                    ProfitMoney = table.Column<float>(type: "real", nullable: false),
+                    DepositedMoney = table.Column<double>(type: "double precision", nullable: false),
+                    ProfitMoney = table.Column<double>(type: "double precision", nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    EndDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    isEnded = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

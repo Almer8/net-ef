@@ -41,7 +41,7 @@ namespace NetPract2
         {
             depTypesList.ItemsSource = depositTypeRepository.getAllDepositTypes();
             clientList.ItemsSource = clientRepository.getAllClients();
-            depList.ItemsSource = depositRepository.getAllDeposits();
+            fillDepGrids();
             fillClientComboBox();
             fillDepComboBox();
             depStartDate.Text = DateTime.Now.Date.ToShortDateString();
@@ -72,6 +72,33 @@ namespace NetPract2
             depTypeMinTerm.Clear();
             depTypesList.SelectedIndex = -1;
         }
+
+        private void fillDepGrids()
+        {
+           switch(radioPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.IsChecked.Value).Content.ToString())
+            {
+                case "No sorting":
+                    depList.ItemsSource = depositRepository.getAllDepositWhereClientNameContains(nameFilter.Text, false);
+                    depHistory.ItemsSource = depositRepository.getAllDepositWhereClientNameContains(nameFilter.Text, true);
+                    break;
+
+                case "Descending":
+                    depList.ItemsSource = depositRepository.getAllDepositSortDescending(nameFilter.Text, false);
+                    depHistory.ItemsSource = depositRepository.getAllDepositSortDescending(nameFilter.Text, true);
+                    break;
+
+                case "Ascending":
+                    depList.ItemsSource = depositRepository.getAllDepositSortAscending(nameFilter.Text, false);
+                    depHistory.ItemsSource = depositRepository.getAllDepositSortAscending(nameFilter.Text, true);
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+
+
         private void depTypeSave_Click(object sender, RoutedEventArgs e)
         {
             if (depTypeName.Text.Length == 0 ||
@@ -262,7 +289,8 @@ namespace NetPract2
 
                    clientName.Text = client.Name;
                    clientID.Text = client.ClientID;
-                   clientDepsNum.Text = depositRepository.getAllDepositsWithClientId(client.Id).Count.ToString();
+                   clientDepsNum.Text = (depositRepository.getAllDepositsWithClientId(client.Id,false).Count +
+                        depositRepository.getAllDepositsWithClientId(client.Id, true).Count).ToString();
                 }
             }
             else
@@ -277,15 +305,20 @@ namespace NetPract2
             {
                 if (clientList.SelectedItem is Model.Client client)
                 {
-                    if(depositRepository.getAllDepositsWithClientId(client.Id).Count != 0)
+                    if(depositRepository.getAllDepositsWithClientId(client.Id, false).Count != 0)
                     {
                         MessageBox.Show("This client has unclosed deposits!");
                         return;
                     }
+                    
+                    List<Deposit> closedDeps = depositRepository.getAllDepositsWithClientId(client.Id,true);
+                    
+                    depositRepository.deleteDepositsList(closedDeps);
                     clientRepository.deleteClientById(client.Id);
                     clearClientFields(null, null);
                     fillClientComboBox();
                     clientList.ItemsSource = clientRepository.getAllClients();
+                    fillDepGrids();
 
                 }
             }
@@ -347,6 +380,7 @@ namespace NetPract2
                     ProfitMoney = total,
                     StartDate = DateOnly.Parse(depStartDate.Text),
                     EndDate = DateOnly.Parse(depEndDate.Text),
+                    isEnded = false,
 
                 };
                 try
@@ -354,7 +388,7 @@ namespace NetPract2
                     depositRepository.createDeposit(deposit);
                     depList.SelectedIndex = -1;
                     clearDepFields(null,null);
-                    depList.ItemsSource = depositRepository.getAllDeposits();
+                    fillDepGrids();
                 }
                 catch (Exception ex) 
                 {
@@ -448,26 +482,30 @@ namespace NetPract2
                     try
                     {
                         depositRepository.deleteDepositById(deposit.Id);
-                        depList.ItemsSource = depositRepository.getAllDeposits();
+                        fillDepGrids();
                     }
                     catch (Exception ex) 
                     {
                         MessageBox.Show(ex.ToString());
                     }
                 }
+                else
+                {
+                    depositRepository.updateDeposit(deposit);
+                    fillDepGrids();
+                }
+
             }
         }
 
         private void filterByName(object sender, TextChangedEventArgs e)
         {
-            if(nameFilter.Text == "")
-            {
-                depList.ItemsSource = depositRepository.getAllDeposits();
-            }
-            else
-            {
-                depList.ItemsSource = depositRepository.getAllDepositWhereClientNameContains(nameFilter.Text);
-            }
-        }   
+            fillDepGrids();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            fillDepGrids();
+        }
     }
 }
