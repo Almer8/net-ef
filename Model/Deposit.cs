@@ -13,5 +13,7 @@ namespace NetPract2.Model
         public double ProfitMoney { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
+        public bool isEnded { get; set; }
+
     }
 }

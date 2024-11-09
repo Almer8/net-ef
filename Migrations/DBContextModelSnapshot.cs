@@ -57,17 +57,20 @@ namespace NetPract2.Migrations
                     b.Property<int>("DepositTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<float>("DepositedMoney")
-                        .HasColumnType("real");
+                    b.Property<double>("DepositedMoney")
+                        .HasColumnType("double precision");
 
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<float>("ProfitMoney")
-                        .HasColumnType("real");
+                    b.Property<double>("ProfitMoney")
+                        .HasColumnType("double precision");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
+
+                    b.Property<bool>("isEnded")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
